@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.Console;
 
 namespace Threes
 {
@@ -10,25 +11,30 @@ namespace Threes
             while (true)
             {
                 Render(game);
-                var key = Console.ReadKey();
+                var key = ReadKey();
                 game.Move(key.Key.ToMove());
             }
         }
 
         static void Render(ThreesGame game)
         {
-            Console.Clear();
+            Clear();
             for (int x = 0; x < 4; x++)
             {
                 for (int y = 0; y < 4; y++)
                 {
-                    Console.Write(game[x, y].ToString().PadLeft(5));
+                    Write(game[x, y].ToString().PadLeft(5));
                 }
-                Console.Write("\n\n");
+                Write("\n\n");
             }
-            Console.WriteLine(game.Next.ToString().PadLeft(5));
 
-            Console.Write(game.Score.ToString().PadLeft(5));
+            Write(new String(' ', 4));
+
+            foreach(var next in game.Next)
+                Write(next.ToString().PadRight(4));
+
+            WriteLine();
+            Write(game.Score.ToString().PadLeft(5));
         }
     }
 }

@@ -22,6 +22,8 @@ namespace Threes
             _matrix = new int[4, 4];
         }
 
+        public int Max => _matrix.Cast<int>().Max();
+
         public int Score
         {
             get
@@ -29,8 +31,8 @@ namespace Threes
                 int ret = 0;
                 for (int x = 0; x < 4; x++)
                     for (int y = 0; y < 4; y++)
-                        if (this[x, y] >= 3)
-                            ret += (int)Pow(3, Log(this[x, y] / 3, 2) + 1);
+                        if (_matrix[x, y] >= 3)
+                            ret += (int)Pow(3, Log(_matrix[x, y] / 3, 2) + 1);
                 return ret;
             }
         }

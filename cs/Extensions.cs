@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Threes
 {
@@ -111,6 +112,17 @@ namespace Threes
             var ret = list[index];
             list.RemoveAt(index);
             return ret;
+        }
+
+        public static T Pick<T>(this Random r, IEnumerable<T> options)
+        {
+            if (options is IList<T> list)
+                return list[r.Next(list.Count)];
+            if (options is T[] array)
+                return array[r.Next(array.Length)];
+
+            var enumerated = options.ToList();
+            return enumerated[r.Next(enumerated.Count)];
         }
 
         private static bool Combine(int a, int b, out int result)
