@@ -48,7 +48,7 @@ namespace Threes
         public bool Move(Move move, int NextCard)
         {
             var preparedBoard = _matrix.ForMove(move);
-            var shiftedBoard = preparedBoard.ShiftLeft();
+            var shiftedBoard = ShiftLeft(preparedBoard);
 
             if (shiftedBoard.Cast<int>().SequenceEqual(preparedBoard.Cast<int>()))
                 return false;
@@ -59,6 +59,35 @@ namespace Threes
             shiftedBoard[cell, 3] = NextCard;
             _matrix = shiftedBoard.FromMove(move);
             return true;
+        }
+
+        private static int[,] ShiftLeft(int[,] board)
+        {
+            var ret = (int[,])board.Clone();
+            var height = ret.GetLength(0);
+            var width = ret.GetLength(1);
+
+            for (var row = 0; row < height; row++)
+                for (var column = 1; column < width; column++)
+                {
+                    if (Combine(ret[row, column - 1], ret[row, column], out var result))
+                    {
+                        ret[row, column] = 0;
+                        ret[row, column - 1] = result;
+                    }
+                    else if (ret[row, column - 1] == 0)
+                    {
+                        ret[row, column - 1] = ret[row, column];
+                        ret[row, column] = 0;
+                    }
+                }
+            return ret;
+        }
+
+        private static bool Combine(int a, int b, out int result)
+        {
+            result = a + b;
+            return (a == b && a > 2) || (a != b && a + b == 3);
         }
 
         private void Initialize()
