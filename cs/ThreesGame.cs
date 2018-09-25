@@ -12,6 +12,7 @@ namespace Threes
         private Board _board = Board.StartGame();
         private int[] _next;
         public int[] Next => _next;
+        public int Moves { get; private set; } = 0;
 
         public ThreesGame()
         {
@@ -50,6 +51,7 @@ namespace Threes
             if (_board.Move(move, _rng.Pick(Next)))
             {
                 AdvanceNext();
+                Moves++;
                 return true;
             }
             return false;

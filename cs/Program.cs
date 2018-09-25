@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using static System.Console;
 
 namespace Threes
@@ -10,37 +8,27 @@ namespace Threes
     {
         static void Main(string[] args)
         {
-            var moves = new List<Move> { Move.Down, Move.Up, Move.Left, Move.Right };
-
-            var tasks = Enumerable.Range(0, 8).Select(x => Task.Run(() =>
+            var rng = new Random();
+            var maxGame = new ThreesGame();
+            for (int i = 0; i < 100_000; i++)
             {
-                var rng = new Random();
-                var maxGame = new ThreesGame();
-                for (int i = 0; i < 100_000; i++)
+                var moves = new List<Move> { Move.Down, Move.Up, Move.Left, Move.Right };
+                var game = new ThreesGame();
+                while (moves.Count > 0)
                 {
-                    var game = new ThreesGame();
-                    var movesWithoutScore = 0;
-                    while (movesWithoutScore < 5)
-                    {
-                        //Render(game);
-                        var oldScore = game.Score;
-                        game.Move(rng.Pick(moves));
-
-                        if (oldScore == game.Score)
-                            movesWithoutScore++;
-                        else
-                            movesWithoutScore = 0;
-                    }
-
-                    if (maxGame.Score < game.Score)
-                        maxGame = game;
+                    //Render(game);
+                    var move = rng.Pick(moves);
+                    if (!game.Move(move))
+                        moves.Remove(move);
+                    else
+                        moves = new List<Move> { Move.Down, Move.Up, Move.Left, Move.Right };
                 }
-                return maxGame;
-            })).ToArray();
-
-            Task.WaitAll(tasks);
+                
+                if (maxGame.Score < game.Score)
+                    maxGame = game;
+            }
             
-            Render(tasks.Select(x => x.Result).OrderByDescending(x => x.Score).First());
+            Render(maxGame);
 
             ReadKey();
         }
@@ -57,13 +45,17 @@ namespace Threes
                 Write("\n\n");
             }
 
+            WriteLine("Next");
             Write(new String(' ', 4));
 
             foreach(var next in game.Next)
                 Write(next.ToString().PadRight(4));
 
-            WriteLine();
+            WriteLine("\nScore");
             Write(game.Score.ToString().PadLeft(5));
+
+            WriteLine("\nMove #");
+            Write(game.Moves);
         }
     }
 }
