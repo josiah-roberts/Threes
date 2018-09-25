@@ -37,6 +37,7 @@
         "xstring": "cpp",
         "xtr1common": "cpp",
         "string": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "vector": "cpp"
     }
 }
