@@ -36,6 +36,7 @@
         "xstddef": "cpp",
         "xstring": "cpp",
         "xtr1common": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "tuple": "cpp"
     }
 }
