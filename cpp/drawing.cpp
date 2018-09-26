@@ -31,7 +31,7 @@ vector<int> bonus_draw(int maximum_tile)
 vector<int> normal_draw()
 {
     if (draw_deck.empty())
-        draw_deck.insert(draw_deck.end(), &newDeck[0], &newDeck[11]);
+        draw_deck.insert(draw_deck.end(), newDeck, (int *)(&newDeck + 1) - 1);
 
     int index = rand() % draw_deck.size();
     int item = draw_deck.at(index);
