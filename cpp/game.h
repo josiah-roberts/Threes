@@ -15,6 +15,7 @@ class Game
   public:
     vector<int> next_tiles;
     bool move(string direction);
+    bool canMove();
     int score();
     void render();
 };

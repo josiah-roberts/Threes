@@ -52,6 +52,11 @@ bool Game::move(string direction)
     return false;
 }
 
+bool Game::canMove()
+{
+    return can_shift_left(board) || can_shift_right(board) || can_shift_up(board) || can_shift_down(board);
+}
+
 int Game::score()
 {
     int ret = 0;

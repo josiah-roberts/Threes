@@ -9,18 +9,24 @@ using namespace std;
 
 int main() 
 {
+    srand(time(NULL));
+    string moves[] = {"left", "right", "up", "down"};
     Game game;
     game.render();
 
-    string last_move;
+    int moveCount = 0;
 
     do
     {
-        getline(cin, last_move);
-        game.move(last_move);
+        if (game.move(moves[rand() % 4]))
+            ++moveCount;
+
         game.render();
-        cout << game.next_tiles.front();
-    } while (last_move != "quit");
+        cout << game.next_tiles.front() << endl << endl;
+    } while (game.canMove());
     
+    cout << moveCount;
+    string crap;
+    getline(cin, crap);
     return 0;
 }
