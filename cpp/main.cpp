@@ -7,8 +7,6 @@
 #include <vector>
 using namespace std;
 
-enum Direction : int {left = 0, right = 1, up = 2, down = 3};
-
 int score(int (&array)[16])
 {
     int ret = 0;
@@ -16,17 +14,6 @@ int score(int (&array)[16])
         if (array[i] >= 3)
             ret += pow(3, log(array[i] / 3) / log(2) + 1);
     return ret;
-}
-
-bool move(int (&array)[16], Direction direction)
-{
-    switch (direction)
-    {
-        case Direction::left : return shift_left(array);
-        case Direction::right : return shift_right(array);
-        case up : return shift_up(array);
-        case down : return shift_down(array);
-    }
 }
 
 bool move(int (&array)[16], string direction)
