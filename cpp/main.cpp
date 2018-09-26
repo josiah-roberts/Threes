@@ -3,41 +3,11 @@
 #include <iomanip>
 #include <string>
 #include "shifting.h"
+#include "drawing.h"
 #include <vector>
 using namespace std;
 
 enum Direction : int {left = 0, right = 1, up = 2, down = 3};
-
-int max_tile(int (&array)[16])
-{
-    int max = -1;
-    for (int i = 0; i < 16; i++) 
-    {
-        int x = array[i];
-        if (x > max)
-            max = x;
-    }
-    return max;
-}
-
-int newDeck[] = {1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3};
-vector<int> draw_deck;
-
-vector<int> next_tiles(int (&array)[16])
-{
-    int max = max_tile(array);
-    if (max >= 48 && rand() % 20 == 0) {
-
-    }
-    
-    if (draw_deck.empty())
-        draw_deck.insert(draw_deck.end(), &newDeck[0], &newDeck[15]);
-
-    int index = rand() % draw_deck.size();
-    int item = draw_deck.at(index);
-    draw_deck.erase(draw_deck.begin() + index);
-    return vector<int>(item, 1);
-}
 
 int score(int (&array)[16])
 {
@@ -86,7 +56,7 @@ bool render(int (&array)[16])
 
 int main() 
 {
-    int stuff[16] = { 1, 2, 3, 3, 2, 1, 24, 1, 6, 2, 12, 12, 2, 2, 3, 12 };
+    int stuff[16] = { 1, 2, 3, 3, 2, 1, 24, 1, 6, 48, 12, 12, 2, 2, 3, 12 };
     render(stuff);
 
     string last_move;
@@ -96,7 +66,10 @@ int main()
         getline(cin, last_move);
         move(stuff, last_move);
         render(stuff);
+        vector<int> next = next_tiles(stuff);
+        int bobby = next.front();
 
+        cout << bobby;
     } while (last_move != "quit");
     
     return 0;
