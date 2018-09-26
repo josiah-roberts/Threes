@@ -2,6 +2,6 @@
 #define DRAWING_FUNS
 
 #include <vector>
-std::vector<int> next_tiles(int (&array)[16]);
+std::vector<int> draw(int (&array)[16]);
 
 #endif

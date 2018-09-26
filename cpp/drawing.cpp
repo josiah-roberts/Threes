@@ -39,7 +39,7 @@ vector<int> normal_draw()
     return vector<int>(1, item);
 }
 
-vector<int> next_tiles(int (&array)[16])
+vector<int> draw(int (&array)[16])
 {
     int max = max_tile(array);
     if (max >= 48 && rand() % 20 == 0)

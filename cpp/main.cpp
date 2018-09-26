@@ -16,16 +16,48 @@ int score(int (&array)[16])
     return ret;
 }
 
+vector<int> next_tiles;
+void fill_tile(int (&array)[16], int start, int step)
+{
+    int options[4] = {start, start + step, start + step * 2, start + step * 3};
+    while (true)
+    {
+        int choice = rand() % 4;
+        if (array[options[choice]] == 0)
+        {
+            array[options[choice]] = next_tiles.at(rand() % next_tiles.size());
+            break;
+        }
+    }
+
+    next_tiles = draw(array);
+}
+
 bool move(int (&array)[16], string direction)
 {
-    if (direction == "left")
-        return shift_left(array);
-    if (direction == "right")
-        return shift_right(array);
-    if (direction == "up")
-        return shift_up(array);
-    if (direction == "down")
-        return shift_down(array);
+    if (next_tiles.empty())
+        next_tiles = draw(array);
+
+    if (direction == "left" && shift_left(array))
+    {
+        fill_tile(array, 3, 4);
+        return true;
+    }
+    if (direction == "right" && shift_right(array))
+    {
+        fill_tile(array, 0, 4);
+        return true;
+    }
+    if (direction == "up" && shift_up(array))
+    {
+        fill_tile(array, 12, 1);
+        return true;
+    }
+    if (direction == "down" && shift_down(array))
+    {
+        fill_tile(array, 0, 1);
+        return true;
+    }
 
     return false;
 }
@@ -43,7 +75,7 @@ bool render(int (&array)[16])
 
 int main() 
 {
-    int stuff[16] = { 1, 2, 3, 3, 2, 1, 24, 1, 6, 48, 12, 12, 2, 2, 3, 12 };
+    int stuff[16] = { 1, 2, 3, 3, 2, 1, 0, 0, 6, 0, 12, 12, 0, 2, 0, 12 };
     render(stuff);
 
     string last_move;
@@ -53,10 +85,7 @@ int main()
         getline(cin, last_move);
         move(stuff, last_move);
         render(stuff);
-        vector<int> next = next_tiles(stuff);
-        int bobby = next.front();
-
-        cout << bobby;
+        cout << next_tiles.front();
     } while (last_move != "quit");
     
     return 0;
