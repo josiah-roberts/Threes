@@ -9,8 +9,8 @@ bool combine(int a, int b, int *result)
 bool shift(int (&array)[16], int sourceCell, int targetCell)
 {
     int combination;
-    int a = array[targetCell];
-    int b = array[sourceCell];
+    int a = array[sourceCell];
+    int b = array[targetCell];
 
     if (combine(a, b, &combination))
     {
