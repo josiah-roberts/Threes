@@ -15,7 +15,7 @@ int max_tile(int (&array)[16])
     return max;
 }
 
-int newDeck[] = {1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3};
+int newDeck[] = {1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3};
 vector<int> bonus_draw(int maximum_tile)
 {
     auto ret = vector<int>();
@@ -44,4 +44,10 @@ vector<int> draw(int (&array)[16], vector<int> &draw_deck)
         return bonus_draw(max);
     
     return normal_draw(draw_deck);
+}
+
+void refill_draw_deck(vector<int> &draw_deck)
+{
+    draw_deck.clear();
+    draw_deck.insert(draw_deck.end(), newDeck, (int *)(&newDeck + 1) - 1);
 }

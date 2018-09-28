@@ -38,6 +38,11 @@
         "xtr1common": "cpp",
         "string": "cpp",
         "tuple": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "xmemory": "cpp",
+        "array": "cpp",
+        "algorithm": "cpp",
+        "iterator": "cpp",
+        "sstream": "cpp"
     }
 }

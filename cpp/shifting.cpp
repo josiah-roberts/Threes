@@ -2,7 +2,7 @@
 
 bool can_combine(int a, int b)
 {
-    return (a == b && a > 2) || a + b == 3 || (a == 0 ^ b == 0);
+    return (a == b && a > 2) || a + b == 3 || (b == 0 && a != 0);
 }
 
 bool combine(int a, int b, int *result)

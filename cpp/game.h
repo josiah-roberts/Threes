@@ -8,16 +8,20 @@ using namespace std;
 class Game
 {
   private:
-    int board[16] = {1, 2, 3, 3, 2, 1, 0, 0, 6, 0, 12, 12, 0, 2, 0, 12};
+    int board[16];
     vector<int> draw_deck;
-    void fill_tile(int (&array)[16], int start, int step);
+    void fill_tile(int start, int step);
 
   public:
+    bool custom_draw = false;
+    void record_draw(int position, int value);
     vector<int> next_tiles;
     bool move(string direction);
     bool canMove();
+    bool canMove(string move);
     int score();
     void render();
+    Game(const int (&board)[16]);    
 };
 
 #endif
